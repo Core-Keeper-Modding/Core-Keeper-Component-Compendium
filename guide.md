@@ -1,0 +1,741 @@
+# ECS Components used in Core Keeper
+The game uses an ECS (Entity Component System) pattern. As such knowing what some components do is crucial. This guide compiles all known authoring components and their corresponding components and buffers. 
+
+The list is separated by the assembly which contains the authoring component. Their corresponding components and buffers, as well as the converter may be in other assemblies.
+
+Each entry is an authoring component, that you can use on a prefab, with description of its effects. Sub lists define which ECS components and buffers are added to the entity with the authoring component.
+
+Mark `(AUX)` after component means it's a Aux Inventory component. This means most of the time this component won't be found on the entity or item itself, instead this component will be stored in a separate data table accessible with item's `inventoryAuxDataIndex` 
+
+## Pug.ECS.Authoring
+- `AchievementTrackerAuthoring`
+  - `AchievementTrackerCD`
+- `ActivatedByElectricityStateAuthoring` - defines that this entity can be activated by electrical wires
+  - `StateInfoCD`
+  - `ActivatedByElectricityStateCD`
+  - `SwapColliderCD`
+  - `SwapColliderInternalCD`
+- `AdaptiveEntityBufferAuthoring`
+  - `AdaptiveEntityBuffer`
+- `AddForceToNearbyEntitiesAuthoring` - defines that this entity should affect items on the ground. User for conveyor belts and drills
+  - `AddForceToNearbyEntitiesCD`
+- `AffectObjectWhenMelodyPlayedAuthoring` - defines that this entity can be affected by playing a melody (Melody doors)
+  - `ItemsToAddToNewObjectBuffer`
+  - `AffectObjectWhenMelodyPlayedCD`
+  - `MelodiesBuffer`
+  - `TrackedNotesBuffer`
+- `AlwaysDropVariationZeroAuthoring` - when destroyed the entity will drop item with variation set to 0
+  - `AlwaysDropVariationZeroCD`
+- `AncientElectricityConnectionAuthoring` - related to Ancient Wire entity
+  - `AncientElectricityConnectionCD`
+- `AnimationAuthoring` - enables entity to have animations. Entity's corresponding EntityMonoBehaviour class tracks this and updates the animations accordingly
+  - `AnimationCD`
+  - `AnimationOrientationCD` - determines which way the entity should face
+- `AnimationOrientationAuthoring` - enables entity to face a certain direction. Likely deprecated, as `AnimationAuthoring` allows to define this too
+  - `AnimationOrientationCD`
+- `AnimationSpeedAuthoring` - defines some properties on how the animations should play
+  - `AnimationSpeedCD`
+- `AreaLevelAuthoring`- defines what level this item should have
+  - `LevelCD`
+- `AttackContinuouslyAuthoring`
+  - `AttackContinuouslyCD`
+- `AuraDistanceOverrideAuthoring`
+  - `AuraDistanceOverrideCD`
+- `BaitOnAPoleAuthoring`
+  - `BaitOnAPoleCD`
+- `BeamAttackStateAuthoring`
+  - `StateInfoCD`
+  - `BeamAttackStateCD`
+- `BedAuthoring` - defines that this entity is a bed
+  - `BedCD`
+  - `ClaimedByPlayerGuidCD`
+  - `ClaimedByCharacterGuidCD`
+  - `DistanceToPlayerCD`
+  - `DetectRoomCD`
+  - `RoomObjectBuffer`
+  - `RoomEmptyPositions`
+- `BehaviourAuthoring`
+  - `OrbitalTurretBehaviourCD`
+- `BehaviourTagsAuthoring`
+  - `BehaviourTagsCD`
+- `BiomesTableAuthoring`
+  - `BiomeParametersCD`
+- `BirdBossBeamAuthoring` - defines that this entity is the Bird boss beam
+  - `BirdBossBeamCD`
+- `BirdBossAuthoring` - defines that this entity is the Bird Boss, or Aezos
+  - `StateInfoCD`
+  - `BirdBossHasAppearedCD`
+  - `BirdBossFlyingAboveStateCD`
+  - `BirdBossAppearStateCD`
+  - `BirdBossSpawnBeamsStateCD`
+  - `BirdBossSpawnStonesStateCD`
+  - `DistanceToPlayerCD`
+  - `DisablePhysicsCD`
+- `BossAuthoring` - defines that this entity is a boss
+  - `BossCD`
+- `BossLarvaAuthoring`
+  - `LarvaTargetPointsBuffer`
+  - `BossLarvaCD`
+- `BossLarvaSpawnStateAuthoring`
+  - `BossLarvaSpawnStateCD`
+- `BossStatueAuthoring` - defines a boss statue, like ones found near the Core
+  - `BossStatueCD`
+- `ButtonAuthoring`
+  - `ButtonCD`
+- `CanBeDiscoveredAuthoring` - defines that this item can be discovered
+  - `CanBeDiscoveredCD`
+  - `DistanceToPlayerCD`
+- `CanBeScannedAuthoring` - defines that this entity can be scanned for
+  - `CanBeScannedCD`
+  - `DontDisableCD`
+  - `Unity.Entities.Disabled`
+- `CanClaimBedAuthoring` - defines that this entity is a bed that a player can claim it
+  - `PlayerClaimedBed`
+  - `CharacterClaimedBedCD`
+  - `DistanceToPlayerCD`
+- `CantBeAttackedAuthoring` - defines that this entity cannot be attacked
+  - `CantBeAttackedCD`
+  - `CantBeAttackedForOneFrameCD`
+- `CantBeSoldAuthoring` - defines that this item cannot be sold
+  - `CantBeSoldCD`
+- `CastItemAuthoring` - defines that this item allows the player to cast and acquire some effect.
+  - `CastItemCD`
+- `CattleAuthoring` - defines that this entity is a cattle
+  - `CattleCD`
+  - `LeashedCD`
+- `CavelingNatureTerritorySpawnerAuthoring`
+  - `CavelingNatureTerritorySpawnerCD`
+- `CavelingTerritorySpawnerAuthoring`
+  - `CavelingTerritorySpawnerCD`
+- `ChangeVariationWhenContainingObjectAuthoring`
+  - `ItemsToAddToNewObjectBuffer`
+  - `ChangeVariationWhenContainingObjectCD`
+- `ChangeVariationWhenPlayerHoldObjectNearbyAuthoring` - probably used for tulip door
+  - `ChangeVariationWhenPlayerHoldObjectNearbyCD`
+- `CreateCharacterGuidAuthoring`
+  - `CharacterGuidCD`
+  - `CreateNewGuidCD`
+- `ChargeAttackStateAuthoring`
+  - `StateInfoCD`
+  - `DetectCollisionCD`
+  - `ChargeAttackStateCD`
+- `CoinAmountAuthoring` - defines that this item can be sold
+  - `CoinAmountCD`
+- `CombatRadiusAuthoring` - configures this entity's combat radius. When player or other opponents exit this radius, I would assume the entity exists the combat state
+  - `CombatRadiusCD`
+- `CombatantsTrackerAuthoring`
+  - `CombatantsTrackerBuffer`
+  - `NewCombatantsBuffer`
+- `SupportsConditionsAuthoring`
+  - `ConditionsBuffer`
+  - `SummarizedConditionEffectsBuffer`
+  - `SummarizedConditionsBuffer`
+  - `NewConditionsBuffer`
+  - `RemoveConditionsBuffer`
+  - `NonSynchronizedConditionsBuffer`
+  - `IsBeingBeHealedByOtherEntitiesCD`
+  - `IsBeingBeHealedByOtherEntitiesBuffer`
+  - `IsAffectedByAurasFromEntitiesBuffer`
+  - `DontShowConditionsStatTextOnItemCD`
+- `ConditionsTableAuthoring`
+  - `ConditionsTableCD`
+- `CookedFoodAuthoring` - defines that this item is a cooked food
+  - `CookedFoodCD`
+- `CookingIngredientAuthoring` - defines that this item is a food ingredient
+  - `CookingIngredientCD`
+- `CooldownAuthoring` - defines that this item has a cooldown
+  - `CooldownCD`
+- `CritterAuthoring` - defines that this entity is a critter
+  - `CritterCD`
+  - `CritterBiomeToSpawnInBuffer`
+  - `CritterTilesetToSpawnInBuffer`
+  - `IsPersistentCritterCD`
+  - `DontSerializeCD`
+  - `AllowLargerAmount`
+- `CustomAttackSoundAuthoring`
+  - `CustomAttackSoundCD`
+- `CustomDisableAuthoring` - defines that this entity should not be disabled
+  - `DontDisableCD`
+- `CustomSceneAuthoring`
+  - `CustomSceneTableCD`
+- `CustomScenePrefabAuthoring`
+  - `CustomScenePrefab`
+- `DamageReductionAuthoring` - defines that when attacked this entity should reduce damage taken
+  - `DamageReductionCD`
+- `DamageObjectStateAuthoring`
+  - `StateInfoCD`
+  - `DetectCollisionCD`
+  - `DamageObjectStateCD`
+- `DestroyEntityIfPlacementNotValidAuthoring` - defines that this entity should be destroyed if placement conditions are not met
+  - `DestroyEntityIfPlacementNotValidCD`
+- `DestroyNearbyOnDeathAuthoring`
+  - `DestroyNearbyEntitiesOnDeathCD`
+  - `DestroyNearbyEntitiesOnDeathBuffer`
+- `DestroyWhenNoNearbyPlayerAuthoring`
+  - `DestroyEntityWhenNoNearbyPlayerCD`
+  - `DistanceToPlayerCD`
+- `DetectCollisionAuthoring`
+  - `DetectCollisionCD`
+- `DiggableAuthoring` - defines that this entity can be dug up with a shovel
+  - `DiggableCD`
+- `DirectionBasedOnVariationAuthoring` - defines that this entity direction should be calculated from its variation
+  - `DirectionBasedOnVariationCD`
+- `DontBlockDiggingAuthoring`
+  - `DontBlockDiggingCD`
+- `DontBlockPlayerFromHittingObjectsWhenMiningPickEquippedAuthoring`
+  - `DontBlockPlayerFromHittingObjectsWhenMiningPickEquippedCD`
+- `DontSerializeAuthoring` - defines that this entity should not be serialized
+  - `DontSerializeCD`
+- `DoorAuthoring` - defines that this entity is door
+  - `DoorCD`
+  - `ColliderVariationCD`
+- `DropsLootAuthoring` - defines that this entity should drop loot, when it will be destroyed or killed. Used for simple loot drops. For more complicated see `DropsLootFromLootTableAuthoring`
+  - `DropsLootBuffer`
+  - `ChanceToDropLootCD`
+- `DurabilityAuthoring` - defines that this item has durability
+  - `DurabilityCD`
+- `EnemyAuthoring` - defines that this entity is an enemy
+  - `EnemyCD`
+  - `EnemyActAsDestructibleCD`
+- `EnemySpawnerPlatformAuthoring`
+  - `EnemySpawnerPlatformCD`
+  - `DistanceToPlayerCD`
+- `EntityPartAuthoring`
+  - `EntityPartCD`
+- `EnvironmentSpawnObjectsTableAuthoring`
+  - `EnvironmentSpawnObjectBuffer`
+- `EquipmentSkinAuthoring` - defines which skin should this piece of armor use
+  - `EquipmentSkinCD`
+- `EquippedObjectAuthoring`
+  - `EquippedObjectCD`
+- `EventTerminalAuthoring`
+  - `EventTerminalCD`
+  - `DistanceToPlayerCD`
+  - `EventTerminalSequenceBuffer`
+  - `AlwaysActiveConnectionsBuffer`
+  - `EventTerminalElectricityEntityBuffer`
+- `ExplodeOnImpactAuthoring` - defines that this entity should explode when hit
+  - `StateInfoCD`
+  - `ExplodeOnImpactWithEntityCD`
+- `ExplodeStateAuthoring`
+  - `StateInfoCD`
+  - `ExplodeStateCD`
+  - `IsExplosiveCD`
+- `ExplosionAuthoring`
+  - `ExplosionCD`
+  - `OwnerCD`
+- `ExplosiveAuthoring` - defines that this entity is explosive
+  - `IsExplosiveCD`
+- `ExtraInventorySizeAuthoring` - defines that this item gives player extra inventory space
+  - `ExtraInventorySizeCD`
+- `FactionAuthoring` - defines to which faction this entity belongs
+  - `FactionCD`
+- `FenceGateAuthoring`
+  - `ColliderVariationCD`
+- `FishAuthoring`
+  - `FishCD`
+- `FishShoalAuthoring`
+  - `FishShoalCD`
+- `FlowerAuthoring`
+  - `FlowerCD`
+- `FullnessAuthoring`
+  - `FullnessCD`
+- `GivesConditionsWhenConsumedAuthoring` - defines that this item will give certain conditions to the player, when they consume (Eat) the item
+  - `GivesConditionsWhenConsumedBuffer`
+- `GivesConditionsWhenEquippedAuthoring` - defines that this item will give certain conditions to the player, when they hold it in their hand
+  - `GivesConditionsWhenEquippedBuffer`
+  - `GivesConditionWhenHeldInHand`
+- `GlowLightAuthoring`
+  - `SmallGlowLightCD`
+- `GroundDecorationAuthoring` - defines that this entity is a ground decoration
+  - `GroundDecorationCD`
+- `GrowingPlantAuthoring` - defines that this entity is a plant, and provides some info about it
+  - `GrowingPlantCD`
+- `HasSpawnPointAuthoring`
+  - `HasSpawnPointCD`
+- `HatchWhenPlayerNearbyStateAuthoring`
+  - `StateInfoCD`
+  - `HatchWhenPlayerNearbyStateCD`
+- `HealNearbyEntitiesAuthoring`
+  - `HealNearbyEntitiesCD`
+- `HealthAuthoring` - defines that this entity has health
+  - `HealthCD`
+  - `HealthChangeBuffer`
+- `IdleInCombatStateAuthoring`
+  - `StateInfoCD`
+  - `IdleInCombatStateCD`
+  - `DistanceToPlayerCD`
+- `IdleWhenNearbyPlayerStateAuthoring`
+  - `StateInfoCD`
+  - `IdleWhenNearbyPlayerStateCD`
+  - `DistanceToPlayerCD`
+- `ImmuneToPushBackAuthoring` - defines that this entity is immune to push back
+  - `ImmuneToPushBackCD`
+- `ImmunityZoneAuthoring`
+  - `ImmunityZoneCD`
+- `IndestructibleAuthoring` - defines that this entity cannot be destroyed by the means of the player
+  - `IndestructibleCD`
+- `InstrumentAuthoring` - defines that this item is an instrument
+  - `InstrumentCD`
+- `InventoryAuxDataPrefabsAuthoring`
+  - `InventoryAuxDataPrefabBuffer`
+  - `InventoryAuxDataPrefabCD`
+  - `InventoryAuxDataCD`
+  - `InventoryAuxDataNeedsInitializationCD`
+- `InvisibilityFramesAuthoring` - defines that the entity should become invisible for some amount of frames after being attacked
+  - `InvisibilityFramesCD`
+- `JumpAttackStateAuthoring`
+  - `StateInfoCD`
+  - `JumpAttackStateCD`
+  - `AttackCooldownTimerCD`
+- `LarvaTerritorySpawnerAuthoring`
+  - `LarvaTerritorySpawnerCD`
+- `LastAttackerAuthoring` - Enabled this entity to track who attacked it last
+  - `LastAttackerCD`
+- `MapMarkerAuthoring` - defines that this entity is a map marker
+  - `MapMarkerCD`
+  - `MapMarkerActivatedCD`
+- `MealsEatenAuthoring` - stores info about food pet/cattle ate
+  - `MealsEatenCD` (AUX)
+- `MeleeAttackStateAuthoring` - defines that this entity can attack in melee range
+  - `StateInfoCD`
+  - `MeleeAttackStateCD`
+  - `AttackCooldownTimerCD`
+- `MerchantAuthoring` - defines that this entity is a merchant
+  - `MerchantCD`
+  - `DistanceToPlayerCD`
+  - `DontDropLootCD`
+  - `MerchantItemInfoBuffer`
+- `MergeDroppedItemAuthoring`
+  - `MergeDroppedItemCD`
+- `MimicPlayerInstrumentNotesAuthoring`
+  - `MimicPlayerInstrumentNotesCD`
+  - `TrackedNotesBuffer`
+- `MineableAuthoring` - defines that this entity can be mined, also apparently if changes entity target priority
+  - `MineableCD`
+- `MinecartAuthoring` - defines that this entity is a minecart
+  - `MinecartCD`
+- `MoleBossAuthoring` - defines that this entity is the Mole Boss
+  - `MoleBossCD`
+  - `MainMoleRefCD`
+  - `MainMoleCD`
+  - `MolesBuffer`
+  - `MoleCombatAppearPositionsBuffer`
+  - `MoleBossBuriedCombatStateCD`
+  - `MoleBossBuriedRoamingStateCD`
+  - `DisablePhysicsCD`
+  - `TargetMortarPositionBuffer`
+- `MortarProjectileAuthoring`
+  - `OwnerCD`
+  - `MortarProjectileCD`
+- `MovementSpeedAuthoring` - defines the movement speed this entity should have
+  - `MovementSpeedCD`
+- `MusicAreaAuthoring`
+  - `MusicAreaCD`
+- `MusicSheetAuthoring` - defines that this item is music sheet
+  - `InstrumentSongInfoCD`
+- `NameAuthoring` - stores entity's name.
+  - `NameCD` (AUX)
+- `NearbyEntitiesTrackerAuthoring` - enables this entity to track entities that are near it. Current entity list can be read from `NearbyEntitiesBufferCD`
+  - `NearbyEntitiesTrackerCD`
+  - `NearbyEntitiesBufferCD`
+- `ObjectAuthoring` - main authoring of any modded entity or item. Defines many properties. Read https://mod.io/g/corekeeper/r/core-keeper-mod-sdk-introduction for more info
+  - `PugMod.IsObjectCD`
+  - `ObjectDataCD`
+  - `ObjectCategoryTagsCD`
+  - `DistanceToPlayerCD`
+  - `SeparateIfStuckCD`
+- `OctopusBossAuthoring` - defines that this entity is the Octopus Boss, or Omoroth
+  - `StateInfoCD`
+  - `OctopusBossCD`
+  - `OctopusBossHasAppearedCD`
+  - `OctopusBossLurkingBelowStateCD`
+  - `OctopusBossAppearStateCD`
+  - `OctopusBossSpawnTentaclesStateCD`
+  - `DistanceToPlayerCD`
+  - `DisablePhysicsCD`
+  - `TeleportLocationsBuffer`
+- `OctopusBossTeleportLocationAuthoring`
+  - `OctopusBossTeleportLocationCD`
+- `OffHandAuthoring` - defines that this is an offhand item
+  - `OffHandCD`
+- `OverrideLeaveCombatTimeAuthoring`
+  - `OverrideLeaveCombatTimeCD`
+- `OverrideNetworkSyncDistanceAuthoring`
+  - `OverrideGhostRelevancyCD`
+- `OwnerAuthoring` - defines that this entity can be owned and stores the owner
+  - `OwnerCD`
+- `PaintToolAuthoring` - defines that this item is a paint brush
+  - `PaintToolCD`
+- `PaintableObjectAuthoring` - defines that this entity can be painted with a paint brush
+  - `PaintableObjectCD`
+- `PetCandyAuthoring`
+  - `PetCandyCD`
+- `PetAuthoring` - defines that this entity is a pet
+  - `PetCD`
+  - `PetTalentPoolBuffer`
+  - `AddPetExperienceBuffer`
+  - `OwnerCD`
+  - `DontDisableCD`
+- `PetDataAuthoring`
+  - `PetTalentBuffer` (AUX)
+  - `PetSkinCD` (AUX)
+- `PetWalkStateAuthoring`
+  - `StateInfoCD`
+  - `PathFindCD`
+  - `PetWalkStateCD`
+- `PickUpObjectLockedUntilReEnterAuthoring`
+  - `PickUpObjectLockedUntilReEnterCD`
+- `PlaceableObjectAuthoring` - defines that this entity can be placed. Entity's tile size is defined here, as well as on what the entity can be placed, and on what it cannot.
+  - `PlaceableObjectCD`
+  - `CanBePlacedOnObjectsBuffer`
+  - `CanNotBePlacedOnObjectsBuffer`
+- `PlantAuthoring` - defines that this entity is a plant
+  - `PlantCD`
+- `PlayerAimPositionAuthoring`
+  - `PlayerAimPositionCD`
+- `PlayerAuthoring` - defines that this entity is a player
+  - `PlayerGhost`
+  - `ClientInput`
+  - `CoinAmountCD`
+  - `PlayedNotesCD`
+  - `PlayerInputCD`
+  - `HungerCD`
+  - `SkillConditionsBuffer`
+  - `SkillTalentConditionsBuffer`
+- `PlayerCustomizationAuthoring`
+  - `PlayerCustomizationCD`
+- `CreatePlayerGuidAuthoring`
+  - `PlayerGuidCD`
+  - `CreateNewGuidCD`
+- `PotionAuthoring` - defines that this item is a potion
+  - `PotionCD`
+- `ProjectileAuthoring` - defines that this entity is a projectile
+  - `OwnerCD`
+  - `TileInfoCD`
+  - `ProjectileCD`
+  - `ProjectilePiercesWallTypesBuffer`
+- `PseudoTileAuthoring` - defines that this entity is a pseudo tile. This means this entity behaves more like a normal entity, and can have state unique per entity placed, but is displayed by a tile on the clients
+  - `PseudoTileCD`
+- `RandomFollowStateAuthoring`
+  - `StateInfoCD`
+  - `DetectCollisionCD`
+  - `RandomFollowStateCD`
+- `RandomWalkGravityAuthoring`
+  - `RandomWalkGravityCD`
+- `RandomWalkGravityWellAuthoring`
+  - `RandomWalkGravityWellCD`
+- `RandomWalkStateAuthoring`
+  - `StateInfoCD`
+  - `DetectCollisionCD`
+  - `RandomWalkStateCD`
+- `RangeAttackStateAuthoring`
+  - `StateInfoCD`
+  - `RangeAttackStateCD`
+  - `AttackCooldownTimerCD`
+- `RangeWeaponAuthoring` - defines that this item is a ranged weapon
+  - `RangeWeaponCD`
+- `RecipeAuthoring` - defines that this item is a recipe for crafting certain item
+  - `ParchmentRecipeCD`
+- `RootAuthoring` - defines that this item/tile is a root. (This component only seems to flag the item for player logic)
+  - `RootCD`
+- `RootPlantAuthoring` - defines that this item/tile is a root plant
+  - `RootPlantCD`
+  - `PugFloraDoGrowCD`
+- `RotationAuthoring` - defines that this entity can be rotated
+  - `DirectionCD`
+- `ScaleHealthByPlayerCountAuthoring` - defines that this entity health should be scaled by how many players the game has. Mostly used for Bosses.
+  - `ScaleHealthByPlayerCountCD`
+- `ScannerAuthoring` - defines that this item is scanner
+  - `ScannerCD`
+- `ScarabBossAuthoring` - defines that this entity is the Scarab Boss, or Ra-Akar
+  - `StateInfoCD`
+  - `ScarabBossCD`
+  - `ScarabBossHasAppearedCD`
+  - `ScarabBossBuriedStateCD`
+  - `ScarabBossAppearStateCD`
+  - `ScarabBossChargeStateCD`
+  - `DisablePhysicsCD`
+  - `TargetMortarPositionBuffer`
+- `SeasonObjectAuthoring` - defines that this item/entity belongs to a certain season and should not be available otherwise
+  - `SeasonObjectCD`
+- `SeedAuthoring` - defines that this item is a seed
+  - `SeedCD`
+- `ShamanBossAuthoring` - defines that this entity is the Shaman Boss, or Malugaz the corrupted
+  - `StateInfoCD`
+  - `ShamanBossCD`
+  - `PhaseTransitionStateCD`
+  - `DisablePhysicsCD`
+- `ShieldAuthoring` - defines that this item is a shield
+  - `ShieldCD`
+- `ShootMortarProjectileStateAuthoring`
+  - `StateInfoCD`
+  - `ShootMortarProjectileStateCD`
+  - `MortarShotPositionBuffer`
+  - `AmountOfTimesTakingDamageCounterCD`
+- `SlimeBossAuthoring` - defines that this entity is the Slime Boss, or Glurch
+  - `SlimeBossCD`
+- `SlimeBossJumpStateAuthoring`
+  - `StateInfoCD`
+  - `SlimeBossJumpStateCD`
+- `SlimeTerritorySpawnerAuthoring`
+  - `SlimeTerritorySpawnerCD`
+- `SnakeBossAuthoring` - defines that this entity is the Snake Boss
+  - `SnakeBossCD`
+  - `DisablePhysicsCD`
+- `SnakeMovementStateAuthoring`
+  - `SnakeSegmentCD`
+  - `ImmuneToDamageCD`
+  - `DisableColliderCD`
+  - `SnakeMovementStateCD`
+  - `EntityPartCD`
+  - `SnakeSegmentsBuffer`
+  - `TargetPointsBuffer`
+  - `SnakeMovementStateSystem/SkipSnakeSegmentInitializationCD`
+  - `DistanceToPlayerCD`
+- `SoulOrbAuthoring` - defines that this entity is a boss soul orb
+  - `SoulOrbCD`
+- `SoulsAuthoring`
+  - `SoulsInfoCD`
+  - `CollectedSoulsBuffer`
+  - `SoulsConditionsBuffer`
+- `SpawnCompanionsAuthoring` - defines that this entity should spawn certain entities when destroyed/killed. Mainly used for bosses that can spawn merchants
+  - `CompanionEntityBuffer`
+  - `UpdateCompanionTranslationCD`
+- `SpawnDroppedItemAuthoring`
+  - `SpawnDroppedItemCD`
+- `SpawnOnDeathAuthoring` - defines that this entity should spawn certain entity when destroyed/killed.
+  - `SpawnEntityOnDeathCD`
+- `SpawnTileOnDeathAuthoring` - defines that this entity should spawn certain tile when destroyed/killed.
+  - `SpawnTileOnDeathCD`
+- `SpawnerAuthoring`
+  - `SpawnerCD`
+- `StateAuthoring`
+  - `StateInfoCD`
+- `SummonAreaAuthoring` - defines a boss summon area. It's the circle found under most early bosses
+  - `SummonAreaCD`
+- `TheCoreAuthoring` - defines that this entity is the Core
+  - `TheCoreCD`
+- `TileAuthoring` - defines that this item is a tile.
+  - `TileCD`
+- `TileEffectAuthoring` - defines effects that are used when this tile is damaged or destroyed
+  - `TileEffectCD`
+  - `TileEffectPuffsBuffer`
+- `TrophyAuthoring` - defines that this item is a trophy
+  - `TrophyCD`
+- `VehicleAuthoring` - defines that this entity is a vehicle.
+  - `VehicleCD`
+- `VelocityAffectorAuthoring` - defines that this entity affects other entities velocities
+  - `VelocityAffectorCD`
+- `WaterSourceAuthoring` - defines that this entity is a source of water
+  - `WaterSourceCD`
+- `WaterSpreaderAuthoring` - defines that this entity is a water spreader. This is probably the entity responsible for liquids speading logic
+  - `WaterSpreaderCD`
+- `WeaponAuthoring` - defines that this item is a weapon
+  - `MeleeWeaponCD`
+- `WeaponDamageAuthoring` - defines weapon damage
+  - `HasWeaponDamageCD`
+- `WindupAuthoring` - defines that this weapon has windup, and controls it's properties
+  - `WindupCD`
+
+## Pug.Other
+- `AlertEmoteStateAuthoring`
+  - `StateInfoCD`
+  - `AlertEmoteStateCD`
+- `AnvilAuthoring` - defines that this entity is an anvil
+  - `AnvilCD`
+- `BossSpawnLocationAuthoring`
+  - `BossSpawnLocationCD`
+- `BreedStateAuthoring`
+  - `BreedStateCD`
+  - `MealsEatenCD` (AUX)
+- `BushStateAuthoring`
+  - `BushStateCD`
+- `CanBeControlledByOtherEntityAuthoring` - defines that this entity can be controlled by players
+  - `ControlledByOtherEntityCD`
+- `CanBePickedUpAuthoring` - defines that this entity can be picked up (Used on dropped items for automated mover arm)
+  - `PickUpObjectCD`
+- `ChaseStateAuthoring` - defines that this entity has chase state, and it's parameters
+  - `PathFindCD`
+  - `ChaseStateCD`
+  - `ChaseHeldObjectBuffer`
+- `CherryBlossomTreeAuthoring`
+  - `CherryBlossomTreeCD`
+- `ClientSubMapAuthoring`
+  - `ClientSubMapLayerCD`
+  - `OnlyRelevantForConnectionCD`
+- `CombatEmoteStateAuthoring`
+  - `StateInfoCD`
+  - `CombatEmoteStateCD`
+  - `CombatEmoteAnimationBuffer`
+- `ConvertToTileAuthoring` - defines that this entity should be converted to a tile.
+  - `ConvertToTileCD`
+- `DamageEffectAuthoring`
+  - `DamageEffectCD`
+- `DamageableObjectAuthoring` - defines that this entity is damageable. (Used in player logic to figure out which entity to attack first)
+  - `DamageableObjectCD`
+- `DeathStateAuthoring` - defines that this entity has a death state
+  - `DropLootDelayCD`
+  - `TriggerAnimationOnDeathCD`
+- `DestroyTimerAuthoring` - defines that this entity should be destroyed after set amount of time. (Used primarily for projectiles)
+  - `DestroyTimerCD`
+  - `DisablePhysicsCD`
+- `DestructibleObjectAuthoring`
+  - `DestructibleObjectCD`
+  - `RequiresDrillCD`
+- `DontDestroyOnZeroHealthAuthoring` - defines that this entity should not be destroyed when its health is dropped to zero.
+  - `DontDestroyOnZeroHealthCD`
+- `DontDropSelfAuthoring` - defines that this entity will not drop its own item
+  - `DontDropSelfCD`
+- `DropsLootFromLootTableAuthoring` - defines that this entity will drop items from set drop table when it's destroyed/killed
+  - `DropsLootFromLootTableCD`
+- `DropsLootOnUseAuthoring` - defines that this entity will drop loot when casting is finished
+  - `OnUseLootBuffer`
+  - `SpawnsItemsOnUseCD`
+- `DropsLootWhenDamagedAuthoring` - defines that this entity will drop items when damaged (Used for Ore Boulders)
+  - `DropsLootWhenDamagedCD`
+- `EatStateAuthoring` - defines that this entity has an eating state
+  - `EatStateCD`
+- `PugElectricity.ElectricityAuthoring` - defines that this entity is an electricity related entity (Wire, Bridge, Source, etc)
+  - `DirectionBasedOnVariationCD`
+  - `ElectricityCD`
+- `EnrageStateAuthoring` - defines that this entity has an enraged state
+  - `EnrageStateCD`
+- `EnsureSameGroundTileBeneathEntityAuthoring` - defines that under this entity all tiles should be the same (Used for Bosses that can jump)
+  - `EnsureSameGroundTileBeneathEntityCD`
+  - `SupportsGroundTilesetsBuffer`
+- `EvolveStateAuthoring`
+  - `EvolveStateCD`
+- `FireflyAuthoring`
+  - `FireflyCD`
+- `FollowPheromoneStateAuthoring` - defines that this entity can follow pheromones
+  - `PheromoneSensorCD`
+  - `FollowPheromoneStateCD`
+- `ForceInCombatIfPlayerNearbySpawnPointAuthoring`
+  - `ForceInCombatIfPlayerNearbySpawnPointCD`
+- `GrowingAuthoring` - defines that this entity can grow, stores grow state.
+  - `GrowingCD`
+- `HealOtherEntityStateAuthoring`
+  - `HealOtherEntityStateCD`
+  - `EntitiesHealedBuffer`
+- `HealthRegenerationAuthoring` - defines how this entity should regenerate health
+  - `HealthRegenerationCD`
+  - `AllowHealthRegenerationInCombatCD`
+- `IdleEmoteStateAuthoring`
+  - `StateInfoCD`
+  - `IdleEmoteStateCD`
+  - `IdleEmoteAnimationBuffer`
+- `IdleStateAuthoring` - defines that this entity has an idle state
+  - `IdleStateCD`
+  - `StunnedStateCD`
+- `IgnoreVertexOffsetsAuthoring` - defines that this tile should not warp, like dirt walls do. Used for man made tiles
+  - `IgnoreVertexOffsetsCD`
+- `ImmuneToRangeDamageAuthoring` - defines that this entity is immune to ranged attacks
+  - `ImmuneToRangeDamageCD`
+- `ImmuneToSkipLootDropAuthoring`
+  - `ImmuneToSkipLootDropCD`
+- `JewelryAuthoring` - defines that this item is jewelry
+  - `JewelryCanBePolishedCD`
+- `LarvaHiveBossHatchEggStateAuthoring`
+  - `LarvaHiveBossHatchEggStateCD`
+- `LarvaHiveEggHatchStateAuthoring`
+  - `LarvaHiveEggHatchStateCD`
+- `LootTableAuthoring`
+  - `LootTableBankCD`
+- `NonHittableAuthoring` - defines that this entity cannot be hit
+  - `NonHittableCD`
+- `PheromoneAdderAuthoring` - defines that this entity leaves pheromones behind
+  - `PheromoneAdderCD`
+- `PheromoneSensorAuthoring` - defines that this entity can sense pheromones
+  - `PheromoneSensorCD`
+- `PlaceObjectStateAuthoring` - defines that this entity sometimes can place objects (Used for Bird Boss)
+  - `PlaceObjectStateCD`
+- `PlayerGraveAuthoring` - defines that this entity is a player's grave
+  - `ClaimedByPlayerGuidCD`
+  - `InventoryCD`
+  - `ContainedObjectsBuffer`
+  - `GhostAlwaysRelevantWhenClaimedCD`
+- `PlayerLocalAuthoring`
+  - `PlayerMovementForceCD`
+  - `PlayerDriftCD`
+- `PlayingInstrumentAuthoring`
+  - `PlayingInstrumentCD`
+- `PortalAuthoring` - defines that this entity is a portal
+  - `PortalCD`
+- `PrioritizedRepairMaterialAuthoring`
+  - `PrioritizedRepairMaterialCD`
+- `PugDatabaseAuthoring`
+  - `PugDatabase/DatabaseBankCD`
+- `PugPrefabBufferAuthoring`
+  - `PugPrefabBuffer`
+- `PutTargetInCombatOnDealingDamageAuthoring`
+  - `PutTargetInCombatOnDealingDamageCD`
+- `RoamingPathAuthoring`
+  - `RoamingPathCD`
+  - `RoamingPathBuffer`
+  - `HasSpawnPointCD`
+- `RoamingStateAuthoring`
+  - `RoamingStateCD`
+- `SeasonalLootAuthoring` - defines that this entity has loot only dropped during certain season
+  - `SeasonalLootBuffer`
+  - `SeasonalLootCD`
+- `SleepStateAuthoring`
+  - `SleepStateCD`
+- `SmoothFollowAuthoring`
+  - `SmoothFollowEntityCD`
+  - `SmoothFollowSpeedCD`
+- `SpawnAroundObjectAuthoring`
+  - `SpawnEntitiesAroundEntityCD`
+  - `EntityPartCD`
+- `SpawnStateAuthoring`
+  - `SpawnStateCD`
+- `SprinklerAuthoring` - defines that this entity is a sprinkler
+  - `SprinklerCD`
+- `SummoningItemAuthoring` - defines that this item allows player to spawn bosses
+  - `SummoningItemBuffer`
+- `SurfacePriorityAuthoring` - defines this entity's surface priority. (Used in player logic to figure out which entity to attack first)
+  - `SurfacePriorityCD`
+- `TeleportStateAuthoring` - defines that this entity can teleport around. (Used for Bird Boss)
+  - `TeleportStateCD`
+  - `DisablePhysicsCD`
+- `TookDamageStateAuthoring`
+  - `TookDamageStateCD`
+  - `DamageEffectCD`
+- `TriggerAchievementOnDeathAuthoring` - defines that this entity should trigger an achievement when destroyed/killed
+  - `TriggerAchievementOnDeathCD`
+- `VendingMachineAuthoring` - defines that this entity is a vending machine
+  - `VendingMachineCD`
+  - `VendingMachineItemBuffer`
+- `WeaponSkillGainedMultiplierAuthoring`
+  - `WeaponSkillMultiplierCD`
+- `WorldInfoAuthoring`
+  - `WorldInfoCD`
+
+## PugWorldGen.Authoring
+- `PugWorldGen.DungeonAuthoring` - defines a dungeon with procedural generation. (For example Sea dungeons)
+  - `PugWorldGen.DungeonFillCD`
+  - `PugWorldGen.DungeonAreaCD`
+  - `PugWorldGen.DungeonRoomBuffer`
+  - `PugWorldGen.DungeonSpawnedObjectBuffer`
+  - `BlockSaveCD`
+  - `PugWorldGen.DungeonGenerationInitializationCD`
+- `PugWorldGen.DungeonCustomScenesAuthoring`
+  - `PugWorldGen.DungeonCustomSceneGroupBuffer`
+- `PugWorldGen.DungeonPathAuthoring`
+  - `PugWorldGen.DungeonPathPlacementBuffer`
+  - `PugWorldGen.DungeonPathBuffer`
+- `PugWorldGen.DungeonRoomAuthoring`
+  - `PugWorldGen.DungeonRoomPlacementBuffer`
+  - `PugWorldGen.DungeonRoomBuffer`
+- `PugWorldGen.DungeonShapeAuthoring`
+  - `PugWorldGen.DungeonNodeTemplateBuffer`
+  - `PugWorldGen.DungeonNodeSpawnTemplateBuffer`
+  - `PugWorldGen.DungeonPathTemplateBuffer`
+  - `PugWorldGen.DungeonPathSpawnTemplateBuffer`
+- `PugWorldGen.DungeonSpawnTemplateAuthoring`
+  - `PugWorldGen.DungeonNodeTemplateBuffer`
+  - `PugWorldGen.DungeonNodeSpawnTemplateBuffer`
+  - `PugWorldGen.DungeonPathTemplateBuffer`
+  - `PugWorldGen.DungeonPathSpawnTemplateBuffer`
+- `PugWorldGen.PugWorldGenAuthoring`
+  - `PugWorldGen.PugWorldGenCD`
