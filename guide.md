@@ -7,6 +7,10 @@ Each entry is an authoring component, that you can use on a prefab, with descrip
 
 Mark `(AUX)` after component means it's a Aux Inventory component. This means most of the time this component won't be found on the entity or item itself, instead this component will be stored in a separate data table accessible with item's `inventoryAuxDataIndex` 
 
+## Contribution
+
+If you know some information about components, you can contribute to this guide via this [repo](https://github.com/Core-Keeper-Modding/Core-Keeper-Component-Compendium/tree/main)
+
 ## Pug.ECS.Authoring
 - `AchievementTrackerAuthoring`
   - `AchievementTrackerCD`
